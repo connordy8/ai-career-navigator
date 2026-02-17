@@ -21,7 +21,7 @@ export default function StickyApplyBar({ job, isSaved, onToggleSave }: StickyApp
       <div className="max-w-lg mx-auto flex items-center gap-3">
         <button
           onClick={onToggleSave}
-          className="p-3 rounded-xl border border-ma-border hover:border-ma-teal transition-colors"
+          className="p-3 rounded-xl border border-ma-border hover:border-ma-teal transition-colors shrink-0"
           aria-label={isSaved ? "Unsave job" : "Save job"}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill={isSaved ? "#2DD7B9" : "none"} stroke={isSaved ? "#2DD7B9" : "#9ca3af"} strokeWidth="2">
@@ -36,12 +36,12 @@ export default function StickyApplyBar({ job, isSaved, onToggleSave }: StickyApp
             onClick={handleApplyClick}
             className="flex-1 py-3 bg-ma-teal text-white rounded-xl text-sm font-medium text-center hover:bg-ma-teal/90 transition-colors"
           >
-            Apply Now
+            I&apos;m ready — apply now →
           </a>
         ) : (
-          <span className="flex-1 py-3 bg-ma-teal/50 text-white rounded-xl text-sm font-medium text-center cursor-not-allowed">
-            Illustrative listing
-          </span>
+          <div className="flex-1 py-3 bg-ma-teal/30 text-ma-teal rounded-xl text-sm font-medium text-center">
+            Sample listing — practice here!
+          </div>
         )}
       </div>
     </div>

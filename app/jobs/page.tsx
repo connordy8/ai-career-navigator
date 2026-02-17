@@ -102,17 +102,31 @@ export default function JobsPage() {
                   {job.isRemote && <span className="text-ma-teal">Remote</span>}
                 </div>
 
-                <div className="flex items-center justify-between mt-3">
-                  <span className="text-xs text-ma-text-light">{job.postedDaysAgo}d ago{job.source ? ` · ${job.source}` : ""}</span>
+                <div className="text-xs text-ma-text-light mt-2">
+                  {job.postedDaysAgo}d ago{job.source ? ` · ${job.source}` : ""}
+                </div>
+
+                <div className="flex items-center gap-2 mt-3">
                   {job.applyLink ? (
-                    <a href={job.applyLink} target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-ma-teal hover:underline">
-                      Apply →
+                    <a
+                      href={job.applyLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 py-2 bg-ma-teal text-white rounded-lg text-xs font-medium text-center hover:bg-ma-teal/90 transition-colors"
+                    >
+                      Apply now
                     </a>
                   ) : (
-                    <Link href={`/jobs/${job.id}`} className="text-xs font-medium text-ma-teal hover:underline">
-                      Details →
-                    </Link>
+                    <span className="flex-1 py-2 bg-ma-bg text-ma-text-light rounded-lg text-xs font-medium text-center cursor-not-allowed">
+                      Sample listing
+                    </span>
                   )}
+                  <Link
+                    href={`/jobs/${job.id}`}
+                    className="flex-1 py-2 border border-ma-teal text-ma-teal rounded-lg text-xs font-medium text-center hover:bg-ma-teal/5 transition-colors"
+                  >
+                    Help me apply
+                  </Link>
                 </div>
               </div>
             );
