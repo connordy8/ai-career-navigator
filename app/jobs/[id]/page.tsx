@@ -71,7 +71,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
   return (
     <div className="flex flex-col h-[calc(100vh-3.5rem)] md:h-screen max-w-lg mx-auto">
       {/* Compact job header */}
-      <div className="px-4 pt-3 pb-3 border-b border-ma-border bg-white shrink-0">
+      <div className="sticky top-0 z-40 px-4 pt-3 pb-3 border-b border-ma-border/50 bg-white/80 backdrop-blur-md shadow-sm shrink-0">
         <div className="flex items-start gap-3">
           <button
             onClick={() => router.back()}
