@@ -4,9 +4,7 @@ import { use } from "react";
 import { useRouter } from "next/navigation";
 import { mockJobs } from "@/lib/jobs/mock-data";
 import { useUserProfile } from "@/lib/context/UserProfileContext";
-import CoachingPlan from "@/components/jobs/CoachingPlan";
-import JobDetailsAccordion from "@/components/jobs/JobDetailsAccordion";
-import JobCoachingChat from "@/components/jobs/JobCoachingChat";
+import JobCoachingSession from "@/components/jobs/JobCoachingSession";
 import StickyApplyBar from "@/components/jobs/StickyApplyBar";
 
 export default function JobDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -42,61 +40,44 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
   const salary = formatSalary();
 
   return (
-    <>
-      <div className="max-w-lg mx-auto px-6 py-6 pb-28 space-y-6">
-        {/* Back */}
-        <button
-          onClick={() => router.back()}
-          className="flex items-center gap-1 text-sm text-ma-text-light hover:text-ma-navy transition-colors"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-          Back
-        </button>
-
-        {/* Job header */}
-        <div>
-          <h1 className="text-xl font-bold text-ma-navy mb-1">{job.title}</h1>
-          <p className="text-sm text-ma-text-light mb-3">{job.employer}</p>
-          <div className="flex flex-wrap items-center gap-2 text-xs">
-            {salary && (
-              <span className="px-2.5 py-1 bg-ma-teal/10 text-ma-navy font-medium rounded-full">
-                {salary}
+    <div className="flex flex-col h-[calc(100vh-3.5rem)] md:h-screen max-w-lg mx-auto">
+      {/* Compact job header */}
+      <div className="px-4 pt-3 pb-3 border-b border-ma-border bg-white shrink-0">
+        <div className="flex items-start gap-3">
+          <button
+            onClick={() => router.back()}
+            className="mt-0.5 p-1 -ml-1 text-ma-text-light hover:text-ma-navy transition-colors shrink-0"
+            aria-label="Go back"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-base font-bold text-ma-navy leading-tight truncate">{job.title}</h1>
+            <p className="text-xs text-ma-text-light mt-0.5">{job.employer}</p>
+            <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+              {salary && (
+                <span className="px-2 py-0.5 bg-ma-teal/10 text-ma-navy text-[11px] font-medium rounded-full">
+                  {salary}
+                </span>
+              )}
+              <span className="px-2 py-0.5 bg-ma-bg text-ma-text-light text-[11px] rounded-full">
+                {job.location}
               </span>
-            )}
-            <span className="px-2.5 py-1 bg-ma-bg text-ma-text-light rounded-full">
-              {job.location}
-            </span>
-            {job.isRemote && (
-              <span className="px-2.5 py-1 bg-ma-mint/20 text-ma-navy rounded-full">
-                Remote
-              </span>
-            )}
-            <span className="px-2.5 py-1 bg-ma-bg text-ma-text-light rounded-full">
-              {job.employmentType === "FULLTIME" ? "Full-time" : job.employmentType === "PARTTIME" ? "Part-time" : "Contract"}
-            </span>
+              {job.isRemote && (
+                <span className="px-2 py-0.5 bg-ma-mint/20 text-ma-navy text-[11px] rounded-full">
+                  Remote
+                </span>
+              )}
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Coaching plan */}
-        <CoachingPlan job={job} profile={profile} />
-
-        {/* Job details accordion */}
-        <div>
-          <h2 className="text-lg font-bold text-ma-navy mb-3">Job details</h2>
-          <JobDetailsAccordion job={job} />
-        </div>
-
-        {/* Embedded coaching chat */}
-        <JobCoachingChat job={job} profile={profile} />
-
-        {/* Disclaimer for mock jobs */}
-        {!job.applyLink && (
-          <p className="text-xs text-ma-text-light text-center">
-            This is an illustrative listing to help you explore and practice.
-          </p>
-        )}
+      {/* Coaching session — fills remaining space */}
+      <div className="flex-1 flex flex-col min-h-0 pb-[4.5rem]">
+        <JobCoachingSession job={job} profile={profile} />
       </div>
 
       {/* Sticky apply bar */}
@@ -105,6 +86,6 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
         isSaved={isJobSaved(job.id)}
         onToggleSave={() => toggleSavedJob(job.id)}
       />
-    </>
+    </div>
   );
 }
