@@ -1,65 +1,90 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useUserProfile } from "@/lib/context/UserProfileContext";
+
+export default function HomePage() {
+  const router = useRouter();
+  const { profile, resetProfile } = useUserProfile();
+  const jobsLink = profile.completedOnboarding ? "/jobs" : "/onboarding/situation";
+  const careersLink = profile.completedOnboarding ? "/careers" : "/onboarding/situation";
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="max-w-lg mx-auto px-6 py-10">
+      {/* Warm greeting */}
+      <div className="mb-10">
+        <p className="text-ma-teal font-semibold text-sm mb-2">Merit America Career Navigator</p>
+        <h1 className="text-3xl font-bold text-ma-navy mb-3 leading-snug">
+          You deserve a career that works for you.
+        </h1>
+        <p className="text-ma-text-light leading-relaxed">
+          We&apos;re here to help you take your next step &mdash; whether that&apos;s a better job today or training for an even brighter future. It&apos;s free, private, and built around your life.
+        </p>
+      </div>
+
+      {/* Two clear choices */}
+      <div className="space-y-4 mb-10">
+        <Link href={jobsLink} className="block group">
+          <div className="bg-white rounded-2xl p-6 border border-ma-border group-hover:border-ma-teal group-hover:shadow-sm transition-all">
+            <p className="text-xs font-medium text-ma-teal mb-2 uppercase tracking-wide">Quick wins</p>
+            <h2 className="text-lg font-bold text-ma-navy mb-1">Find a better job now</h2>
+            <p className="text-sm text-ma-text-light leading-relaxed">
+              See real jobs near you that pay more, offer better hours, or have benefits &mdash; no extra training needed.
+            </p>
+          </div>
+        </Link>
+
+        <Link href={careersLink} className="block group">
+          <div className="bg-white rounded-2xl p-6 border border-ma-border group-hover:border-ma-teal group-hover:shadow-sm transition-all">
+            <p className="text-xs font-medium text-ma-lavender mb-2 uppercase tracking-wide">Long-term growth</p>
+            <h2 className="text-lg font-bold text-ma-navy mb-1">Build skills for a great career</h2>
+            <p className="text-sm text-ma-text-light leading-relaxed">
+              Explore free training programs from trusted partners that lead to careers paying $40K–$80K+.
+            </p>
+          </div>
+        </Link>
+      </div>
+
+      {/* Friendly AI nudge */}
+      <div className="bg-ma-warm-bg rounded-2xl p-6 text-center">
+        <p className="text-sm text-ma-text mb-2">
+          Not sure where to start? That&apos;s totally okay.
+        </p>
+        <Link
+          href="/chat"
+          className="inline-flex items-center gap-1 text-ma-teal font-semibold text-sm hover:underline"
+        >
+          Chat with your career advisor &rarr;
+        </Link>
+        <p className="text-xs text-ma-text-light mt-2">
+          Free, confidential, and personalized to you.
+        </p>
+      </div>
+
+      {/* Trust signals */}
+      <div className="mt-10 text-center">
+        <p className="text-xs text-ma-text-light">
+          Trusted by 40,000+ working adults &middot; Backed by Merit America &middot; Always free
+        </p>
+      </div>
+
+      {/* Start fresh option for returning users */}
+      {profile.completedOnboarding && (
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => {
+              if (confirm("This will clear your preferences so you can start over. Continue?")) {
+                resetProfile();
+                router.push("/onboarding/situation");
+              }
+            }}
+            className="text-xs text-ma-text-light hover:text-ma-teal transition-colors"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            Start fresh with new preferences
+          </button>
         </div>
-      </main>
+      )}
     </div>
   );
 }

@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ma-navy: #001846;
+  --ma-teal: #2DD7B9;
+  --ma-light-blue: #b8e4ff;
+  --ma-lavender: #dfcff4;
+  --ma-mint: #91f0df;
+  --ma-bg: #fafafa;
+  --ma-warm-bg: #fdf8f4;
+  --ma-white: #ffffff;
+  --ma-text: #2d2d3a;
+  --ma-text-light: #71717a;
+  --ma-border: #e8e8ed;
+  --ma-error: #dc2626;
+  --ma-success: #059669;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ma-navy: var(--ma-navy);
+  --color-ma-teal: var(--ma-teal);
+  --color-ma-light-blue: var(--ma-light-blue);
+  --color-ma-lavender: var(--ma-lavender);
+  --color-ma-mint: var(--ma-mint);
+  --color-ma-bg: var(--ma-bg);
+  --color-ma-warm-bg: var(--ma-warm-bg);
+  --color-ma-white: var(--ma-white);
+  --color-ma-text: var(--ma-text);
+  --color-ma-text-light: var(--ma-text-light);
+  --color-ma-border: var(--ma-border);
+  --color-ma-error: var(--ma-error);
+  --color-ma-success: var(--ma-success);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ma-bg);
+  color: var(--ma-text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Subtle scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ma-border);
+  border-radius: 2px;
+}
+
+/* Bottom nav safe area */
+.pb-safe {
+  padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
 }
