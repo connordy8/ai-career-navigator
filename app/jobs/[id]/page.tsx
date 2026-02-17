@@ -20,12 +20,9 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
     try {
       const stored = localStorage.getItem("coaching_job");
       if (stored) {
-        const parsed = JSON.parse(stored) as JobListing;
-        if (parsed.id === id) {
-          setJob(parsed);
-          setLoading(false);
-          return;
-        }
+        setJob(JSON.parse(stored) as JobListing);
+        setLoading(false);
+        return;
       }
     } catch {}
 
