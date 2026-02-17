@@ -133,7 +133,14 @@ export default function JobCoachingSession({ job, profile }: JobCoachingSessionP
 
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-sm text-red-700">
-            Something went wrong. Try sending your message again.
+            <p className="mb-2">Something went wrong connecting to your coach.</p>
+            <p className="text-xs text-red-500 mb-3">{error.message}</p>
+            <button
+              onClick={() => sendMessage({ text: TRIGGER_MESSAGE })}
+              className="text-xs font-medium text-red-700 underline hover:text-red-900"
+            >
+              Try again
+            </button>
           </div>
         )}
 

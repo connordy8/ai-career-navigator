@@ -26,22 +26,34 @@ export default function HomePage() {
       {/* Two clear choices */}
       <div className="space-y-4 mb-10">
         <Link href={jobsLink} className="block group">
-          <div className="bg-white rounded-2xl p-6 border border-ma-border group-hover:border-ma-teal group-hover:shadow-sm transition-all">
-            <p className="text-xs font-medium text-ma-teal mb-2 uppercase tracking-wide">Quick wins</p>
-            <h2 className="text-lg font-bold text-ma-navy mb-1">Find a better job now</h2>
-            <p className="text-sm text-ma-text-light leading-relaxed">
+          <div className="bg-ma-navy rounded-2xl p-6 group-hover:shadow-lg transition-all">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-2xl">🚀</span>
+              <p className="text-xs font-semibold text-ma-teal uppercase tracking-wide">Quick wins</p>
+            </div>
+            <h2 className="text-lg font-bold text-white mb-2">Find a better job now</h2>
+            <p className="text-sm text-white/70 leading-relaxed">
               See real jobs near you that pay more, offer better hours, or have benefits &mdash; no extra training needed.
             </p>
+            <div className="mt-4 inline-flex items-center gap-1 text-ma-teal text-sm font-semibold group-hover:gap-2 transition-all">
+              Browse jobs <span>&rarr;</span>
+            </div>
           </div>
         </Link>
 
         <Link href={careersLink} className="block group">
-          <div className="bg-white rounded-2xl p-6 border border-ma-border group-hover:border-ma-teal group-hover:shadow-sm transition-all">
-            <p className="text-xs font-medium text-ma-lavender mb-2 uppercase tracking-wide">Long-term growth</p>
-            <h2 className="text-lg font-bold text-ma-navy mb-1">Build skills for a great career</h2>
-            <p className="text-sm text-ma-text-light leading-relaxed">
-              Explore free training programs from trusted partners that lead to careers paying $40K–$80K+.
+          <div className="bg-gradient-to-br from-ma-teal to-ma-teal/80 rounded-2xl p-6 group-hover:shadow-lg transition-all">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-2xl">📈</span>
+              <p className="text-xs font-semibold text-white/90 uppercase tracking-wide">Long-term growth</p>
+            </div>
+            <h2 className="text-lg font-bold text-white mb-2">Build skills for a great career</h2>
+            <p className="text-sm text-white/80 leading-relaxed">
+              Explore free training programs from trusted partners that lead to careers paying $40K&ndash;$80K+.
             </p>
+            <div className="mt-4 inline-flex items-center gap-1 text-white text-sm font-semibold group-hover:gap-2 transition-all">
+              Explore careers <span>&rarr;</span>
+            </div>
           </div>
         </Link>
       </div>
