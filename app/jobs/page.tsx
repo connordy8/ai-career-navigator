@@ -117,9 +117,12 @@ export default function JobsPage() {
                       Apply now
                     </a>
                   ) : (
-                    <span className="flex-1 py-2 bg-ma-bg text-ma-text-light rounded-lg text-xs font-medium text-center cursor-not-allowed">
-                      Sample listing
-                    </span>
+                    <Link
+                      href={`/jobs/${job.id}`}
+                      className="flex-1 py-2 bg-ma-teal text-white rounded-lg text-xs font-medium text-center hover:bg-ma-teal/90 transition-colors"
+                    >
+                      Learn more
+                    </Link>
                   )}
                   <Link
                     href={`/jobs/${job.id}`}
