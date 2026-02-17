@@ -1,18 +1,19 @@
 "use client";
 
-import { use, useEffect } from "react";
+import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { careerPaths } from "@/lib/careers/career-paths";
 import { useUserProfile } from "@/lib/context/UserProfileContext";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
+import CareerCoachingDrawer from "@/components/careers/CareerCoachingDrawer";
 
 export default function CareerPathDetailPage({ params }: { params: Promise<{ pathId: string }> }) {
   const { pathId } = use(params);
   const router = useRouter();
-  const { trackCareerExplored } = useUserProfile();
+  const { profile, trackCareerExplored } = useUserProfile();
+  const [coachOpen, setCoachOpen] = useState(false);
 
   const path = careerPaths.find((p) => p.id === pathId);
 
@@ -124,14 +125,31 @@ export default function CareerPathDetailPage({ params }: { params: Promise<{ pat
         ))}
       </div>
 
-      {/* AI Help CTA */}
-      <Card className="bg-ma-navy text-white border-none">
-        <h2 className="font-bold mb-2">Have Questions About This Career?</h2>
-        <p className="text-sm text-white/80 mb-4">Our AI advisor can tell you more about what this job is really like, what training is best for you, and how to get started.</p>
-        <Link href="/chat">
-          <Button variant="teal" fullWidth>Ask the Career Advisor</Button>
-        </Link>
-      </Card>
+      {/* Spacer for sticky bar */}
+      <div className="h-20" />
+
+      {/* Sticky coach bar */}
+      <div className="fixed bottom-14 md:bottom-0 inset-x-0 z-30 bg-white/90 backdrop-blur-md border-t border-ma-border/50 shadow-[0_-2px_10px_rgba(0,0,0,0.06)]">
+        <div className="max-w-2xl mx-auto px-4 py-3">
+          <button
+            onClick={() => setCoachOpen(true)}
+            className="w-full flex items-center justify-center gap-2 py-3 bg-ma-navy text-white rounded-xl text-sm font-medium hover:bg-ma-navy/90 transition-colors"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            Talk to a coach about this career
+          </button>
+        </div>
+      </div>
+
+      {/* Coaching drawer */}
+      <CareerCoachingDrawer
+        career={path}
+        profile={profile}
+        isOpen={coachOpen}
+        onClose={() => setCoachOpen(false)}
+      />
     </div>
   );
 }

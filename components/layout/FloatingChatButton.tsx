@@ -6,8 +6,9 @@ import { usePathname } from "next/navigation";
 export default function FloatingChatButton() {
   const pathname = usePathname();
 
-  // Hide on chat page (already there), during onboarding (don't distract)
-  if (pathname?.startsWith("/chat") || pathname?.startsWith("/onboarding")) {
+  // Hide on chat page (already there), during onboarding (don't distract),
+  // and on career detail pages (sticky coach bar replaces it)
+  if (pathname?.startsWith("/chat") || pathname?.startsWith("/onboarding") || pathname?.match(/^\/careers\/[^/]+/)) {
     return null;
   }
 
