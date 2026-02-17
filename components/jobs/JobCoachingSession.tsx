@@ -5,7 +5,6 @@ import { DefaultChatTransport } from "ai";
 import { useRef, useEffect, useState, useMemo, useCallback, FormEvent } from "react";
 import { JobListing } from "@/lib/jobs/types";
 import { UserProfile } from "@/lib/context/UserProfileContext";
-import { buildJobCoachingSessionPrompt } from "@/lib/ai/prompts";
 
 interface JobCoachingSessionProps {
   job: JobListing;
@@ -20,30 +19,28 @@ export default function JobCoachingSession({ job, profile }: JobCoachingSessionP
   const inputRef = useRef<HTMLInputElement>(null);
   const [input, setInput] = useState("");
 
-  const context = useMemo(
-    () =>
-      buildJobCoachingSessionPrompt(
-        {
-          title: job.title,
-          employer: job.employer,
-          description: job.description,
-          qualifications: job.qualifications,
-          salary: job.salary,
-          benefits: job.benefits,
-        },
-        {
-          currentJob: profile.currentJob,
-          goals: profile.goals,
-          barriers: profile.barriers,
-          availableHours: profile.availableHours,
-        }
-      ),
-    [job, profile]
-  );
-
   const transport = useMemo(
-    () => new DefaultChatTransport({ api: "/api/chat", body: { context } }),
-    [context]
+    () =>
+      new DefaultChatTransport({
+        api: "/api/chat/coaching",
+        body: {
+          job: {
+            title: job.title,
+            employer: job.employer,
+            description: job.description,
+            qualifications: job.qualifications,
+            salary: job.salary,
+            benefits: job.benefits,
+          },
+          userProfile: {
+            currentJob: profile.currentJob,
+            goals: profile.goals,
+            barriers: profile.barriers,
+            availableHours: profile.availableHours,
+          },
+        },
+      }),
+    [job, profile]
   );
 
   const { messages, sendMessage, status, error } = useChat({ transport });
