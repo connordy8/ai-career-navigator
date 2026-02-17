@@ -65,7 +65,7 @@ export default function HomePage() {
       {/* Trust signals */}
       <div className="mt-10 text-center">
         <p className="text-xs text-ma-text-light">
-          Trusted by 40,000+ working adults &middot; Backed by Merit America &middot; Always free
+          Trusted by tens of thousands of working adults &middot; Backed by Merit America &middot; Always free
         </p>
       </div>
 
