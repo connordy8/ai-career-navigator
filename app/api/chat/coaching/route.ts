@@ -1,5 +1,5 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
-import { streamText } from "ai";
+import { streamText, convertToModelMessages } from "ai";
 import { buildJobCoachingSessionPrompt } from "@/lib/ai/prompts";
 
 export async function POST(req: Request) {
@@ -37,10 +37,13 @@ export async function POST(req: Request) {
       }
     );
 
+    // Convert UI messages (parts format) to model messages (content format)
+    const modelMessages = await convertToModelMessages(messages);
+
     const result = streamText({
       model: anthropic("claude-sonnet-4-5-20250929"),
       system: systemPrompt,
-      messages,
+      messages: modelMessages,
     });
 
     return result.toUIMessageStreamResponse();

@@ -1,13 +1,22 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { JobListing } from "@/lib/jobs/types";
 import { useUserProfile } from "@/lib/context/UserProfileContext";
 
 export default function JobsPage() {
+  const router = useRouter();
   const { profile, toggleSavedJob, isJobSaved } = useUserProfile();
   const [query, setQuery] = useState("");
+
+  const storeAndNavigate = useCallback((job: JobListing) => {
+    try {
+      sessionStorage.setItem(`job_${job.id}`, JSON.stringify(job));
+    } catch {}
+    router.push(`/jobs/${job.id}`);
+  }, [router]);
   const [searchQuery, setSearchQuery] = useState("");
   const [jobs, setJobs] = useState<JobListing[]>([]);
   const [loading, setLoading] = useState(true);
@@ -117,19 +126,19 @@ export default function JobsPage() {
                       Apply now
                     </a>
                   ) : (
-                    <Link
-                      href={`/jobs/${job.id}`}
+                    <button
+                      onClick={() => storeAndNavigate(job)}
                       className="flex-1 py-2 bg-ma-teal text-white rounded-lg text-xs font-medium text-center hover:bg-ma-teal/90 transition-colors"
                     >
                       Learn more
-                    </Link>
+                    </button>
                   )}
-                  <Link
-                    href={`/jobs/${job.id}`}
+                  <button
+                    onClick={() => storeAndNavigate(job)}
                     className="flex-1 py-2 border border-ma-teal text-ma-teal rounded-lg text-xs font-medium text-center hover:bg-ma-teal/5 transition-colors"
                   >
                     Help me apply
-                  </Link>
+                  </button>
                 </div>
               </div>
             );

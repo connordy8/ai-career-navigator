@@ -1,8 +1,9 @@
 "use client";
 
-import { use } from "react";
+import { use, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { mockJobs } from "@/lib/jobs/mock-data";
+import { JobListing } from "@/lib/jobs/types";
 import { useUserProfile } from "@/lib/context/UserProfileContext";
 import JobCoachingSession from "@/components/jobs/JobCoachingSession";
 import StickyApplyBar from "@/components/jobs/StickyApplyBar";
@@ -11,8 +12,36 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
   const { id } = use(params);
   const router = useRouter();
   const { profile, toggleSavedJob, isJobSaved } = useUserProfile();
+  const [job, setJob] = useState<JobListing | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const job = mockJobs.find((j) => j.id === id);
+  useEffect(() => {
+    // Try sessionStorage first (works for both API and mock jobs)
+    try {
+      const stored = sessionStorage.getItem(`job_${id}`);
+      if (stored) {
+        setJob(JSON.parse(stored));
+        setLoading(false);
+        return;
+      }
+    } catch {}
+
+    // Fall back to mock data
+    const mockJob = mockJobs.find((j) => j.id === id);
+    if (mockJob) {
+      setJob(mockJob);
+    }
+    setLoading(false);
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="max-w-lg mx-auto px-6 py-16 text-center">
+        <div className="w-6 h-6 border-2 border-ma-teal border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-sm text-ma-text-light">Loading job...</p>
+      </div>
+    );
+  }
 
   if (!job) {
     return (

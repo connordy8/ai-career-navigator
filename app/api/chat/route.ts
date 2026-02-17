@@ -1,24 +1,42 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
-import { streamText } from "ai";
+import { streamText, convertToModelMessages } from "ai";
 import { careerAdvisorSystemPrompt } from "@/lib/ai/prompts";
 
 export async function POST(req: Request) {
-  const { messages, context } = await req.json();
+  try {
+    const { messages, context } = await req.json();
 
-  // Create provider inside handler to ensure env vars are loaded
-  const anthropic = createAnthropic({
-    baseURL: "https://api.anthropic.com/v1",
-    apiKey: process.env.APP_ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY,
-  });
+    const apiKey = process.env.APP_ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      return new Response(JSON.stringify({ error: "API key not configured" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
-  // Use context-specific system prompt if provided, otherwise default
-  const systemPrompt = context || careerAdvisorSystemPrompt;
+    const anthropic = createAnthropic({
+      baseURL: "https://api.anthropic.com/v1",
+      apiKey,
+    });
 
-  const result = streamText({
-    model: anthropic("claude-sonnet-4-5-20250929"),
-    system: systemPrompt,
-    messages,
-  });
+    const systemPrompt = context || careerAdvisorSystemPrompt;
 
-  return result.toUIMessageStreamResponse();
+    // Convert UI messages (parts format) to model messages (content format)
+    const modelMessages = await convertToModelMessages(messages);
+
+    const result = streamText({
+      model: anthropic("claude-sonnet-4-5-20250929"),
+      system: systemPrompt,
+      messages: modelMessages,
+    });
+
+    return result.toUIMessageStreamResponse();
+  } catch (error: unknown) {
+    console.error("Chat API error:", error);
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
