@@ -13,9 +13,9 @@ export default function JobsPage() {
 
   const storeAndNavigate = useCallback((job: JobListing) => {
     try {
-      sessionStorage.setItem(`job_${job.id}`, JSON.stringify(job));
+      localStorage.setItem("coaching_job", JSON.stringify(job));
     } catch {}
-    router.push(`/jobs/${job.id}`);
+    router.push(`/jobs/${encodeURIComponent(job.id)}`);
   }, [router]);
   const [searchQuery, setSearchQuery] = useState("");
   const [jobs, setJobs] = useState<JobListing[]>([]);

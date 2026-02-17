@@ -16,13 +16,16 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Try sessionStorage first (works for both API and mock jobs)
+    // Try localStorage first (set by storeAndNavigate on jobs page)
     try {
-      const stored = sessionStorage.getItem(`job_${id}`);
+      const stored = localStorage.getItem("coaching_job");
       if (stored) {
-        setJob(JSON.parse(stored));
-        setLoading(false);
-        return;
+        const parsed = JSON.parse(stored) as JobListing;
+        if (parsed.id === id) {
+          setJob(parsed);
+          setLoading(false);
+          return;
+        }
       }
     } catch {}
 
