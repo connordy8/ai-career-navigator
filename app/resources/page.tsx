@@ -28,6 +28,14 @@ export default function ResourcesPage() {
         </div>
       </Card>
 
+      {/* Location note */}
+      <div className="flex items-start gap-2 px-3 py-2.5 bg-ma-teal/5 border border-ma-teal/20 rounded-xl mb-4 text-xs text-ma-text">
+        <span className="shrink-0 mt-px">📍</span>
+        <p>
+          Some resources below are specific to <strong>Massachusetts</strong>. If you&apos;re in a different state, call or text <strong>211</strong> to find similar programs near you.
+        </p>
+      </div>
+
       {/* Categories */}
       <div className="space-y-3">
         {resourceCategories.map((category) => (
