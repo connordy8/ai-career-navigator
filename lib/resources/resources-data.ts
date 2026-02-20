@@ -4,6 +4,7 @@ export interface Resource {
   description: string;
   url: string;
   phone?: string;
+  isLocal?: boolean;
 }
 
 export interface ResourceCategory {
@@ -23,9 +24,9 @@ export const resourceCategories: ResourceCategory[] = [
     resources: [
       {
         id: "cc-1",
-        name: "Child Care Assistance (through 211)",
-        description: "Find local childcare assistance programs, subsidized daycare, and Head Start programs in your area.",
-        url: "https://www.211.org/get-help/childcare",
+        name: "Find Local Childcare Help (211)",
+        description: "Call or text 211 to find childcare assistance programs, subsidized daycare, and Head Start in your area.",
+        url: "https://www.211.org",
         phone: "211",
       },
       {
@@ -40,6 +41,13 @@ export const resourceCategories: ResourceCategory[] = [
         description: "Federal program that helps low-income families pay for child care while they work or attend training.",
         url: "https://www.acf.hhs.gov/occ/ccdf-reauthorization",
       },
+      {
+        id: "cc-4",
+        name: "MA Child Care Assistance (Vouchers)",
+        description: "Massachusetts subsidized childcare for income-eligible families. Apply through your local Child Care Resource & Referral agency.",
+        url: "https://www.mass.gov/child-care-financial-assistance-voucher",
+        isLocal: true,
+      },
     ],
   },
   {
@@ -50,9 +58,9 @@ export const resourceCategories: ResourceCategory[] = [
     resources: [
       {
         id: "h-1",
-        name: "Housing Assistance (through 211)",
-        description: "Find emergency shelter, rental assistance, and affordable housing programs near you.",
-        url: "https://www.211.org/get-help/housing",
+        name: "Find Local Housing Help (211)",
+        description: "Call or text 211 for emergency shelter, rental assistance, and affordable housing programs near you.",
+        url: "https://www.211.org",
         phone: "211",
       },
       {
@@ -66,6 +74,34 @@ export const resourceCategories: ResourceCategory[] = [
         name: "National Low Income Housing Coalition",
         description: "Find affordable rentals and housing resources in every state.",
         url: "https://nlihc.org/rental-assistance",
+      },
+      {
+        id: "h-4",
+        name: "MA Residential Assistance for Families in Transition (RAFT)",
+        description: "Up to $7,000 for Massachusetts families at risk of eviction or homelessness. Covers rent, security deposits, utilities, and more.",
+        url: "https://www.mass.gov/how-to/apply-for-raft",
+        isLocal: true,
+      },
+      {
+        id: "h-5",
+        name: "Cambridge Affordable Housing Resources",
+        description: "City of Cambridge programs including affordable housing lotteries, rental assistance, and homebuyer programs.",
+        url: "https://www.cambridgema.gov/iwantto/applytolotteryhousingincambridge",
+        isLocal: true,
+      },
+      {
+        id: "h-6",
+        name: "Metro Housing Boston",
+        description: "Housing search assistance, homelessness prevention, and rental voucher programs for Greater Boston residents.",
+        url: "https://www.metrohousingboston.org",
+        isLocal: true,
+      },
+      {
+        id: "h-7",
+        name: "MA Emergency Assistance (EA) Shelter",
+        description: "Emergency shelter for Massachusetts families with children who are experiencing homelessness.",
+        url: "https://www.mass.gov/emergency-assistance-ea-shelter",
+        isLocal: true,
       },
     ],
   },
@@ -93,6 +129,13 @@ export const resourceCategories: ResourceCategory[] = [
         description: "Nutrition assistance for pregnant and breastfeeding women, infants, and children under 5.",
         url: "https://www.fns.usda.gov/wic",
       },
+      {
+        id: "f-4",
+        name: "Greater Boston Food Bank",
+        description: "Find free food distribution sites, community meals, and mobile markets across Eastern Massachusetts.",
+        url: "https://www.gbfb.org/need-food/",
+        isLocal: true,
+      },
     ],
   },
   {
@@ -103,9 +146,9 @@ export const resourceCategories: ResourceCategory[] = [
     resources: [
       {
         id: "t-1",
-        name: "Transportation Help (through 211)",
-        description: "Find discounted transit passes, rideshare programs, and transportation assistance in your area.",
-        url: "https://www.211.org/get-help/transportation",
+        name: "Find Local Transit Help (211)",
+        description: "Call or text 211 to find discounted transit passes, rideshare programs, and transportation assistance in your area.",
+        url: "https://www.211.org",
         phone: "211",
       },
       {
@@ -113,6 +156,13 @@ export const resourceCategories: ResourceCategory[] = [
         name: "Vehicles for Change",
         description: "Provides low-cost cars to families transitioning from poverty to self-sufficiency.",
         url: "https://www.vehiclesforchange.org",
+      },
+      {
+        id: "t-3",
+        name: "MBTA Reduced Fare Programs",
+        description: "Discounted Charlie Cards for low-income riders in the Greater Boston area. Up to 50% off fares.",
+        url: "https://www.mbta.com/fares/reduced",
+        isLocal: true,
       },
     ],
   },
@@ -140,6 +190,13 @@ export const resourceCategories: ResourceCategory[] = [
         description: "Community health centers offer care on a sliding fee scale based on your income. No one is turned away.",
         url: "https://findahealthcenter.hrsa.gov",
       },
+      {
+        id: "hc-4",
+        name: "MassHealth (MA Medicaid)",
+        description: "Massachusetts health insurance for low-income residents. Many working adults qualify. Covers medical, dental, and vision.",
+        url: "https://www.mass.gov/masshealth",
+        isLocal: true,
+      },
     ],
   },
   {
@@ -162,10 +219,17 @@ export const resourceCategories: ResourceCategory[] = [
       },
       {
         id: "fin-3",
-        name: "Emergency Assistance (through 211)",
-        description: "Find emergency financial assistance for utilities, rent, and other urgent needs.",
-        url: "https://www.211.org/get-help/financial",
+        name: "Find Emergency Assistance (211)",
+        description: "Call or text 211 for help with utilities, rent, and other urgent financial needs.",
+        url: "https://www.211.org",
         phone: "211",
+      },
+      {
+        id: "fin-4",
+        name: "MA Good Neighbor Energy Fund",
+        description: "Help paying heating bills for Massachusetts residents who don't qualify for federal fuel assistance.",
+        url: "https://www.magoodneighbor.org",
+        isLocal: true,
       },
     ],
   },

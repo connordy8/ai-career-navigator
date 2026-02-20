@@ -6,9 +6,14 @@ import { usePathname } from "next/navigation";
 export default function FloatingChatButton() {
   const pathname = usePathname();
 
-  // Hide on chat page (already there), during onboarding (don't distract),
-  // and on career detail pages (sticky coach bar replaces it)
-  if (pathname?.startsWith("/chat") || pathname?.startsWith("/onboarding") || pathname?.match(/^\/careers\/[^/]+/)) {
+  // Hide on chat page, during onboarding, on career detail pages (sticky coach bar),
+  // and on job detail pages (sticky apply bar)
+  if (
+    pathname?.startsWith("/chat") ||
+    pathname?.startsWith("/onboarding") ||
+    pathname?.match(/^\/careers\/[^/]+/) ||
+    pathname?.match(/^\/jobs\/[^/]+/)
+  ) {
     return null;
   }
 

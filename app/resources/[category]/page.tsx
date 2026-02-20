@@ -41,7 +41,14 @@ export default function ResourceCategoryPage({ params }: { params: Promise<{ cat
       <div className="space-y-3">
         {category.resources.map((resource) => (
           <Card key={resource.id}>
-            <h2 className="font-bold text-ma-navy mb-1">{resource.name}</h2>
+            <div className="flex items-start justify-between gap-2 mb-1">
+              <h2 className="font-bold text-ma-navy">{resource.name}</h2>
+              {resource.isLocal && (
+                <span className="shrink-0 px-2 py-0.5 bg-ma-teal/10 text-ma-teal text-[10px] font-semibold rounded-full">
+                  Local to MA
+                </span>
+              )}
+            </div>
             <p className="text-sm text-ma-text mb-3">{resource.description}</p>
             <div className="flex flex-col gap-2">
               <a

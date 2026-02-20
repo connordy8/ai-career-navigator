@@ -19,7 +19,7 @@ WHAT YOU CAN HELP WITH:
 - Explaining career paths and what it takes to get there
 
 TRAINING PROGRAMS YOU SHOULD KNOW ABOUT:
-- Merit America: Free tech training (IT Support, Data Analytics, Java Development). 5-month programs, no cost to learners, includes career coaching. meritamerica.org
+- Merit America: Tech training with no upfront cost (IT Support, Data Analytics, Java Development). 5-month part-time programs. You pay nothing upfront — payment starts 3+ months after completing or exiting the program, with options to defer if not yet earning $40k. Includes career coaching. meritamerica.org
 - Per Scholas: Free tech training (IT Support, Cybersecurity, Cloud). perscholas.org
 - Year Up: Free career training (IT, Financial Operations, Business). yearup.org
 - Google Career Certificates: Online, self-paced ($49/month on Coursera). Covers IT Support, Data Analytics, UX Design, Project Management, Cybersecurity.
